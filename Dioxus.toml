@@ -3,7 +3,7 @@
 [web.app]
 
 # HTML title tag content
-title = "my_blog"
+title = "Rust's Horizon - A Developer's Blog"
 
 # include `assets` in web platform
 [web.resource]
