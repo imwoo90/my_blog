@@ -95,6 +95,8 @@ const REDIRECT_SCRIPT: &str = r#"
                 })[0] || '').slice(2).replace(/~and~/g, '&') +
                 l.hash
             );
+            // Force router to re-evaluate URL
+            window.dispatchEvent(new Event('popstate'));
         }
     }
 }(window.location))
