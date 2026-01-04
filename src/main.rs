@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 
-use views::{About, BlogList, BlogPost, Contact, Home, NotFound, Projects, WasmProject, Navbar};
+use views::{About, BlogList, BlogPost, Contact, Home, Navbar, NotFound, Projects, WasmProject};
 
 mod components;
 mod views;
@@ -37,7 +37,7 @@ enum Route {
 }
 
 const FAVICON: Asset = asset!("/assets/favicon.ico");
-const MAIN_CSS: Asset = asset!("/tailwind.css");
+const MAIN_CSS: Asset = asset!("assets/tailwind.css");
 
 fn main() {
     dioxus::launch(App);
@@ -55,14 +55,33 @@ fn App() -> Element {
 
         // Fonts
         document::Link { rel: "preconnect", href: "https://fonts.googleapis.com" }
-        document::Link { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "true" }
-        document::Link { href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap", rel: "stylesheet" }
-        document::Link { href: "https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap", rel: "stylesheet" }
-        document::Link { href: "https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap", rel: "stylesheet" }
-        document::Link { href: "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap", rel: "stylesheet" }
+        document::Link {
+            rel: "preconnect",
+            href: "https://fonts.gstatic.com",
+            crossorigin: "true",
+        }
+        document::Link {
+            href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap",
+            rel: "stylesheet",
+        }
+        document::Link {
+            href: "https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap",
+            rel: "stylesheet",
+        }
+        document::Link {
+            href: "https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap",
+            rel: "stylesheet",
+        }
+        document::Link {
+            href: "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap",
+            rel: "stylesheet",
+        }
 
         // Highlight.js
-        document::Link { href: "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css", rel: "stylesheet" }
+        document::Link {
+            href: "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css",
+            rel: "stylesheet",
+        }
         document::Script { src: "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" }
 
         document::Link { rel: "icon", href: FAVICON }
