@@ -42,28 +42,27 @@ fn main() {
     {
         // GitHub Pages SPA Redirect Handling
         if let Some(window) = web_sys::window() {
-            if let Ok(location) = window.location() {
-                if let Ok(search) = location.search() {
-                    if search.starts_with("?p=/") {
-                        let path = search[3..].split('&').next().unwrap_or("/");
-                        let decoded_path = path.replace("~and~", "&");
+            let location = window.location();
+            if let Ok(search) = location.search() {
+                if search.starts_with("?p=/") {
+                    let path = search[3..].split('&').next().unwrap_or("/");
+                    let decoded_path = path.replace("~and~", "&");
 
-                        if let Ok(history) = window.history() {
-                            let pathname = location.pathname().unwrap_or_default();
-                            let base = if pathname.ends_with('/') {
-                                &pathname[..pathname.len() - 1]
-                            } else {
-                                &pathname
-                            };
+                    if let Ok(history) = window.history() {
+                        let pathname = location.pathname().unwrap_or_default();
+                        let base = if pathname.ends_with('/') {
+                            &pathname[..pathname.len() - 1]
+                        } else {
+                            &pathname
+                        };
 
-                            let new_url = format!("{}{}", base, decoded_path);
-                            // Clean up the URL before Dioxus starts
-                            let _ = history.replace_state_with_url(
-                                &unsafe { web_sys::js_sys::JSON::parse("null").unwrap() },
-                                "",
-                                Some(&new_url),
-                            );
-                        }
+                        let new_url = format!("{}{}", base, decoded_path);
+                        // Clean up the URL before Dioxus starts
+                        let _ = history.replace_state_with_url(
+                            &wasm_bindgen::JsValue::NULL,
+                            "",
+                            Some(&new_url),
+                        );
                     }
                 }
             }
