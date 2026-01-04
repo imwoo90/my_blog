@@ -28,7 +28,9 @@ pub fn NotFound(segments: Vec<String>) -> Element {
                         div { class: "text-gray-500 mb-4 select-none",
                             "    Finished dev [unoptimized + debuginfo] target(s) in 0.42s"
                         }
-                        div { class: "text-gray-500 mb-4 select-none", "     Running `target/debug/router`" }
+                        div { class: "text-gray-500 mb-4 select-none",
+                            "     Running `target/debug/router`"
+                        }
                         div { class: "mt-6 text-red-500 font-bold",
                             "thread 'main' panicked at 'Page not found: 404', src/main.rs:42:5"
                         }

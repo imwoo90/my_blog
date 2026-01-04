@@ -12,7 +12,7 @@ pub fn About() -> Element {
                         img {
                             class: "w-full h-full rounded-full object-cover border-4 border-primary-light/50 shadow-lg",
                             src: "https://lh3.googleusercontent.com/aida-public/AB6AXuAPY0CCVN_4GL3-hGi_oTrltehQY07eSFKotu0R7VEFER7S3HpAsYPIVhi9tPeKSEfsqsbJDH-pUOecDZ1_9LKTtOUxtVEzozK1Mg5PTH34O5gL4fQqpGTXDDdohpSDkoCMHma6B6i_LW633qtLmpDbSQRBMyRE_h90oqvCdv2jK4_ToQG3ZlHKwnorWLecafDGcNgiVkbjeGfDCyqoR6ADi6nytdDEqrwSVszYU0i1h-BRbHH4V5fdVO9QZZq5i0QXVNIKKabPaWwV",
-                            alt: "Professional headshot of the developer"
+                            alt: "Professional headshot of the developer",
                         }
                     }
                     div { class: "flex flex-col gap-4 text-center md:text-left",
@@ -34,7 +34,18 @@ pub fn About() -> Element {
                     div { class: "flex flex-col gap-4",
                         SectionTitle { title: "Core Skills" }
                         div { class: "flex flex-wrap gap-3",
-                            for skill in ["Embedded Rust", "Bare-Metal Firmware", "RTOS Integration", "WebAssembly (WASM)", "Async Rust (Tokio)", "Backend APIs (axum)", "Cross-Platform Mobile", "CI/CD & DevOps", "Linux Systems"] {
+                            for skill in [
+                                "Embedded Rust",
+                                "Bare-Metal Firmware",
+                                "RTOS Integration",
+                                "WebAssembly (WASM)",
+                                "Async Rust (Tokio)",
+                                "Backend APIs (axum)",
+                                "Cross-Platform Mobile",
+                                "CI/CD & DevOps",
+                                "Linux Systems",
+                            ]
+                            {
                                 Badge { text: skill.to_string() }
                             }
                         }
@@ -46,23 +57,23 @@ pub fn About() -> Element {
                         TimelineItem {
                             date: "2022 - Present",
                             title: "Lead Embedded Engineer, Innovatech Dynamics",
-                            description: "Architected and developed a new generation of IoT devices, migrating the entire firmware from C to Rust. Achieved a 40% reduction in memory usage and eliminated a whole class of memory corruption bugs."
+                            description: "Architected and developed a new generation of IoT devices, migrating the entire firmware from C to Rust. Achieved a 40% reduction in memory usage and eliminated a whole class of memory corruption bugs.",
                         }
                         TimelineItem {
                             date: "2020 - 2022",
                             title: "Full-Stack Developer, QuantumLeap Solutions",
-                            description: "Built high-performance backend services in Rust and explored its potential for frontend development using WebAssembly, creating interactive data visualization tools that ran entirely in the browser."
+                            description: "Built high-performance backend services in Rust and explored its potential for frontend development using WebAssembly, creating interactive data visualization tools that ran entirely in the browser.",
                         }
                         TimelineItem {
                             date: "2018",
                             title: "The Spark: Discovering Rust",
-                            description: "While working on a complex C++ project, I discovered Rust. Its promise of safety without sacrificing performance was a revelation that set the course for my entire career."
+                            description: "While working on a complex C++ project, I discovered Rust. Its promise of safety without sacrificing performance was a revelation that set the course for my entire career.",
                         }
                         TimelineItem {
                             date: "2016 - 2018",
                             title: "Firmware Engineer, Core Systems Inc.",
                             description: "My professional journey began here, writing C and C++ for industrial control systems. It was here I learned the criticality of robust, reliable code in resource-constrained environments.",
-                            is_last: true
+                            is_last: true,
                         }
                     }
                 }

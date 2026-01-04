@@ -73,8 +73,9 @@ pub fn Card(
     let link_label = link_text.unwrap_or_else(|| "Read More".to_string());
 
     let content = rsx! {
-        div { class: "w-full aspect-video bg-cover bg-center rounded-t-lg",
-            style: "background-image: url('{image_url}')"
+        div {
+            class: "w-full aspect-video bg-cover bg-center rounded-t-lg",
+            style: "background-image: url('{image_url}')",
         }
         div { class: "p-6 flex flex-col flex-grow",
             h3 { class: "text-text-dark dark:text-white text-xl font-bold leading-tight tracking-[-0.015em] group-hover:text-primary-light transition-colors",
@@ -114,8 +115,7 @@ pub fn Card(
         }
     } else {
         rsx! {
-            div {
-                class: "flex flex-col rounded-lg overflow-hidden bg-white dark:bg-[#2a2a2a] border border-text-dark/5 dark:border-white/10 group transition-all duration-300 hover:shadow-lg dark:hover:bg-white/5",
+            div { class: "flex flex-col rounded-lg overflow-hidden bg-white dark:bg-[#2a2a2a] border border-text-dark/5 dark:border-white/10 group transition-all duration-300 hover:shadow-lg dark:hover:bg-white/5",
                 {content}
             }
         }
@@ -187,7 +187,7 @@ pub fn Input(
                     if let Some(handler) = oninput {
                         handler.call(e);
                     }
-                }
+                },
             }
         }
     }
@@ -220,7 +220,7 @@ pub fn TextArea(
                     if let Some(handler) = oninput {
                         handler.call(e);
                     }
-                }
+                },
             }
         }
     }
@@ -250,8 +250,12 @@ pub fn TimelineItem(
     rsx! {
         div { class: "{spacing_class} ml-4 relative",
             div { class: "absolute w-4 h-4 bg-primary-light rounded-full mt-1.5 -left-6.5 border border-background-light dark:border-background-dark" }
-            time { class: "mb-1 text-sm font-normal leading-none text-text-dark/40 dark:text-gray-400 transition-colors", "{date}" }
-            h3 { class: "text-lg font-semibold text-text-dark dark:text-white transition-colors", "{title}" }
+            time { class: "mb-1 text-sm font-normal leading-none text-text-dark/40 dark:text-gray-400 transition-colors",
+                "{date}"
+            }
+            h3 { class: "text-lg font-semibold text-text-dark dark:text-white transition-colors",
+                "{title}"
+            }
             p { class: "text-base font-normal text-text-dark/70 dark:text-[#D4D4D4] transition-colors mt-1",
                 "{description}"
             }

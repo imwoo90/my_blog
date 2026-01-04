@@ -41,8 +41,7 @@ pub fn Contact() -> Element {
                             div { class: "flex justify-start",
                                 PrimaryButton {
                                     text: "Submit Message",
-                                    onclick: // TODO: Implement form submission
-                                    move |_| {},
+                                    onclick: move |_| {},
                                 }
                             }
                         }

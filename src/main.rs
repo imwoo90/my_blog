@@ -1,4 +1,4 @@
-use dioxus::{document::eval, prelude::*};
+use dioxus::prelude::*;
 use views::{About, BlogList, BlogPost, Contact, Home, Navbar, NotFound, Projects, WasmProject};
 
 mod components;
@@ -42,61 +42,50 @@ fn main() {
     dioxus::launch(App);
 }
 
-const THEME_SCRIPT: &str = r#"
-    (function() {
-        const saved = localStorage.getItem("theme");
-        if (saved === "dark" || (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
-            document.documentElement.classList.add("dark");
-        } else {
-            document.documentElement.classList.remove("dark");
+/// Detect initial theme (Pure Rust abstraction)
+fn get_initial_theme() -> bool {
+    #[cfg(target_arch = "wasm32")]
+    {
+        if let Some(window) = web_sys::window() {
+            if let Some(storage) = window.local_storage().ok().flatten() {
+                if let Ok(Some(saved)) = storage.get_item("theme") {
+                    return saved == "dark";
+                }
+            }
+            if let Ok(Some(mql)) = window.match_media("(prefers-color-scheme: dark)") {
+                return mql.matches();
+            }
         }
-    })();
-"#;
+    }
+    // Default for Desktop/SSR
+    false
+}
+
+/// Sync theme to storage (Pure Rust abstraction)
+fn sync_theme(is_dark: bool) {
+    #[cfg(target_arch = "wasm32")]
+    {
+        if let Some(window) = web_sys::window() {
+            if let Some(storage) = window.local_storage().ok().flatten() {
+                let _ = storage.set_item("theme", if is_dark { "dark" } else { "light" });
+            }
+        }
+    }
+    // For Desktop, you could add:
+    // #[cfg(not(target_arch = "wasm32"))] { /* Save to local file using confy */ }
+}
 
 #[allow(non_snake_case)]
 #[component]
 fn App() -> Element {
-    let is_dark = use_signal(|| {
-        #[cfg(target_arch = "wasm32")]
-        {
-            if let Some(window) = web_sys::window() {
-                if let Some(storage) = window.local_storage().ok().flatten() {
-                    if let Ok(Some(saved)) = storage.get_item("theme") {
-                        return saved == "dark";
-                    }
-                }
-                if let Ok(Some(media_query_list)) =
-                    window.match_media("(prefers-color-scheme: dark)")
-                {
-                    return media_query_list.matches();
-                }
-            }
-        }
-        false
-    });
+    let is_dark = use_signal(get_initial_theme);
     use_context_provider(|| is_dark);
 
-    // Update theme: Sync with document class and localStorage
-    use_effect(move || {
-        let dark = is_dark();
-        eval(&format!(
-            "document.documentElement.classList.toggle('dark', {}); localStorage.setItem('theme', '{}');",
-            dark,
-            if dark { "dark" } else { "light" }
-        ));
-    });
+    // Platform-agnostic effect
+    use_effect(move || sync_theme(is_dark()));
 
     rsx! {
-        // Script to prevent flash of unstyled content (FOUC)
-        script { "{THEME_SCRIPT}" }
-        // Tailwind Script for CDN fallback if build fails (optional, but good for proto)
-        // script { src: "https://cdn.tailwindcss.com?plugins=forms,container-queries" }
-        // document::Script {
-        //     id: "tailwind-config",
-        //     "tailwind.config = {{ darkMode: 'class', theme: {{ extend: {{ colors: {{ 'primary': '#ec5b13', 'primary-light': '#DEA584', 'background-light': '#f8f6f6', 'background-dark': '#1E1E1E', 'background-darker': '#121212' }} }} }} }}"
-        // }
-
-        // Fonts
+        // Standard Links
         document::Link { rel: "preconnect", href: "https://fonts.googleapis.com" }
         document::Link {
             rel: "preconnect",
@@ -104,32 +93,22 @@ fn App() -> Element {
             crossorigin: "true",
         }
         document::Link {
-            href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap",
+            href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Roboto+Mono&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap",
             rel: "stylesheet",
         }
-        document::Link {
-            href: "https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap",
-            rel: "stylesheet",
-        }
-        document::Link {
-            href: "https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap",
-            rel: "stylesheet",
-        }
-        document::Link {
-            href: "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap",
-            rel: "stylesheet",
-        }
-
-        // Highlight.js
         document::Link {
             href: "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css",
             rel: "stylesheet",
         }
         document::Script { src: "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" }
-
         document::Link { rel: "icon", href: FAVICON }
         document::Link { rel: "stylesheet", href: MAIN_CSS }
 
-        Router::<Route> {}
+        // Root Wrapper: Reacts to is_dark signal
+        div { class: if is_dark() { "dark" } else { "" },
+            div { class: "bg-background-light dark:bg-background-dark text-text-dark dark:text-text-light min-h-screen transition-colors duration-300",
+                Router::<Route> {}
+            }
+        }
     }
 }
