@@ -1,3 +1,4 @@
+use crate::components::*;
 use crate::views::Footer;
 use crate::Route;
 use dioxus::prelude::*;
@@ -5,15 +6,11 @@ use dioxus::prelude::*;
 #[component]
 pub fn BlogList() -> Element {
     rsx! {
-        div { class: "layout-content-container flex flex-col w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8",
+        Container {
             main { class: "flex flex-col gap-12 mt-8 md:mt-16",
-                div { class: "w-full flex flex-col gap-6 text-center items-center px-4",
-                    h1 { class: "text-white text-4xl md:text-5xl font-black leading-tight tracking-[-0.033em]",
-                        "From the Horizon"
-                    }
-                    p { class: "text-[#D4D4D4] text-lg md:text-xl font-normal leading-normal max-w-3xl mx-auto",
-                        "Exploring the frontiers of Rust, from bare-metal to the web. Find articles, tutorials, and deep dives here."
-                    }
+                Hero {
+                    title: "From the Horizon",
+                    subtitle: "Exploring the frontiers of Rust, from bare-metal to the web. Find articles, tutorials, and deep dives here.",
                 }
                 section { class: "flex flex-col md:flex-row gap-4 px-4 items-center",
                     div { class: "relative w-full md:flex-1",
@@ -32,78 +29,28 @@ pub fn BlogList() -> Element {
                         button { class: "px-4 py-2 text-sm font-medium rounded-md bg-transparent text-gray-400 hover:bg-white/10 hover:text-white transition-colors", "backend" }
                     }
                 }
-                section { class: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8",
-                    div { class: "flex flex-col rounded-lg overflow-hidden bg-[#2a2a2a] border border-white/10 group",
-                        div {
-                            class: "w-full aspect-video bg-cover bg-center",
-                            style: "background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBCi_pzNBVAhdhyYbqWap1-J9p4C5e7Qg6V8ZzF0E8aKgg5gcyH6nlx6u8TcJznHXhdlE6wILKxlF_rVI-dsKeRThWqbJXnybVHkiS879RY2kqgOxaj8lGDFgqgIlrbsxFIjg_SsQ7ddoeF67K9JgN6ZeqobfwkcRHjFnG2BbRCumKTZTwKS1bcPJuFg6X5cEc4popXC2x7h-Hg6_A_WJ1ZEyEQg9cnRfLTod-WujsdskNkUlBc-SRxRmTO7k0sa4JyR-4QUQ4or0YC')"
-                        }
-                        div { class: "p-6 flex flex-col flex-grow",
-                            h3 { class: "text-white text-xl font-bold leading-tight tracking-[-0.015em] group-hover:text-primary-light transition-colors",
-                                "Bare-Metal Rust: Blinking an LED"
-                            }
-                            p { class: "text-[#D4D4D4] text-base font-normal leading-normal mt-2 mb-4 flex-grow",
-                                "A deep dive into writing Rust for microcontrollers, starting from the ground up without any standard library."
-                            }
-                            div { class: "flex items-center gap-2 mb-4",
-                                span { class: "text-xs font-mono bg-gray-700/50 text-gray-300 px-2 py-1 rounded", "bare-metal" }
-                                span { class: "text-xs font-mono bg-gray-700/50 text-gray-300 px-2 py-1 rounded", "embedded" }
-                            }
-                            Link {
-                                to: Route::BlogPost { id: "post-1".to_string() },
-                                class: "text-primary-light text-sm font-semibold hover:underline flex items-center gap-1",
-                                "Read More "
-                                span { class: "material-symbols-outlined text-base", "arrow_forward" }
-                            }
-                        }
+
+                Section { class: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8",
+                    Card {
+                        title: "Bare-Metal Rust: Blinking an LED",
+                        description: "A deep dive into writing Rust for microcontrollers, starting from the ground up without any standard library.",
+                        image_url: "https://lh3.googleusercontent.com/aida-public/AB6AXuBCi_pzNBVAhdhyYbqWap1-J9p4C5e7Qg6V8ZzF0E8aKgg5gcyH6nlx6u8TcJznHXhdlE6wILKxlF_rVI-dsKeRThWqbJXnybVHkiS879RY2kqgOxaj8lGDFgqgIlrbsxFIjg_SsQ7ddoeF67K9JgN6ZeqobfwkcRHjFnG2BbRCumKTZTwKS1bcPJuFg6X5cEc4popXC2x7h-Hg6_A_WJ1ZEyEQg9cnRfLTod-WujsdskNkUlBc-SRxRmTO7k0sa4JyR-4QUQ4or0YC",
+                        tags: vec!["bare-metal".to_string(), "embedded".to_string()],
+                        link_to: Route::BlogPost { id: "post-1".to_string() }
                     }
-                    div { class: "flex flex-col rounded-lg overflow-hidden bg-[#2a2a2a] border border-white/10 group",
-                        div {
-                            class: "w-full aspect-video bg-cover bg-center",
-                            style: "background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAI1Cr-l7Wo5cgHt_zfG7BK8WvHPYWk5oEm-9oEQ6_MylTr-gO7ZrldH3pUrirQ5dYe4yZDhwcV-arSM4h3WA2urB99awKGkr9SLyWeteJEQExthZdm_fK0mqi3c95QNudHSRPVSZIyywMm-LADZqGhXreY55_EqUksKyzJXbGh43v6TWyfjFjAPn1a4OPM0KYZ-1joKgoI6uEnbR-6-cn4GYPzcL8ari8x_9XuWah3PJcoY7eqIyd4R-RNA0bwyrgkJRXbMCMI7Qeu')"
-                        }
-                        div { class: "p-6 flex flex-col flex-grow",
-                            h3 { class: "text-white text-xl font-bold leading-tight tracking-[-0.015em] group-hover:text-primary-light transition-colors",
-                                "Compiling Rust to WebAssembly"
-                            }
-                            p { class: "text-[#D4D4D4] text-base font-normal leading-normal mt-2 mb-4 flex-grow",
-                                "Learn how to leverage Rust's performance and safety in the browser by compiling it to WebAssembly."
-                            }
-                            div { class: "flex items-center gap-2 mb-4",
-                                span { class: "text-xs font-mono bg-gray-700/50 text-gray-300 px-2 py-1 rounded", "web" }
-                                span { class: "text-xs font-mono bg-gray-700/50 text-gray-300 px-2 py-1 rounded", "frontend" }
-                            }
-                            Link {
-                                to: Route::WasmProject {},
-                                class: "text-primary-light text-sm font-semibold hover:underline flex items-center gap-1",
-                                "Read More "
-                                span { class: "material-symbols-outlined text-base", "arrow_forward" }
-                            }
-                        }
+                    Card {
+                        title: "Compiling Rust to WebAssembly",
+                        description: "Learn how to leverage Rust's performance and safety in the browser by compiling it to WebAssembly.",
+                        image_url: "https://lh3.googleusercontent.com/aida-public/AB6AXuAI1Cr-l7Wo5cgHt_zfG7BK8WvHPYWk5oEm-9oEQ6_MylTr-gO7ZrldH3pUrirQ5dYe4yZDhwcV-arSM4h3WA2urB99awKGkr9SLyWeteJEQExthZdm_fK0mqi3c95QNudHSRPVSZIyywMm-LADZqGhXreY55_EqUksKyzJXbGh43v6TWyfjFjAPn1a4OPM0KYZ-1joKgoI6uEnbR-6-cn4GYPzcL8ari8x_9XuWah3PJcoY7eqIyd4R-RNA0bwyrgkJRXbMCMI7Qeu",
+                        tags: vec!["web".to_string(), "frontend".to_string()],
+                        link_to: Route::WasmProject {}
                     }
-                    div { class: "flex flex-col rounded-lg overflow-hidden bg-[#2a2a2a] border border-white/10 group",
-                        div {
-                            class: "w-full aspect-video bg-cover bg-center",
-                            style: "background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBw0O5mBTIGcNEI5F7O7cvNFLBqR3vtVXX0xpBIqdxMjQzqsflRIpLkWfHeYCzI6JbOoWtv8PgIDgXtmk1807iK6WPBXbslbZdBkFcanHrmA96bfNqegGjfk7wDF_Fgn7ElE5a0jPvGvSK1_wtTHkbPQQoK4e-SABmKm54PP006iDJN_lfNqiAhZmVUi5cWTvpPT-VFpEG77Ne324il3ltYhpF1B-kqpgMWymESqPg9jer8niQofq_Q8vPoEPCPZvuSOYEHJklGZa8a')"
-                        }
-                        div { class: "p-6 flex flex-col flex-grow",
-                            h3 { class: "text-white text-xl font-bold leading-tight tracking-[-0.015em] group-hover:text-primary-light transition-colors",
-                                "Building Native Mobile Apps with Rust"
-                            }
-                            p { class: "text-[#D4D4D4] text-base font-normal leading-normal mt-2 mb-4 flex-grow",
-                                "Exploring how to create cross-platform native mobile applications using a Rust backend and web-based frontend."
-                            }
-                            div { class: "flex items-center gap-2 mb-4",
-                                span { class: "text-xs font-mono bg-gray-700/50 text-gray-300 px-2 py-1 rounded", "mobile" }
-                                span { class: "text-xs font-mono bg-gray-700/50 text-gray-300 px-2 py-1 rounded", "tauri" }
-                            }
-                            a {
-                                class: "text-primary-light text-sm font-semibold hover:underline flex items-center gap-1",
-                                href: "#",
-                                "Read More "
-                                span { class: "material-symbols-outlined text-base", "arrow_forward" }
-                            }
-                        }
+                    Card {
+                        title: "Building Native Mobile Apps with Rust",
+                        description: "Exploring how to create cross-platform native mobile applications using a Rust backend and web-based frontend.",
+                        image_url: "https://lh3.googleusercontent.com/aida-public/AB6AXuBw0O5mBTIGcNEI5F7O7cvNFLBqR3vtVXX0xpBIqdxMjQzqsflRIpLkWfHeYCzI6JbOoWtv8PgIDgXtmk1807iK6WPBXbslbZdBkFcanHrmA96bfNqegGjfk7wDF_Fgn7ElE5a0jPvGvSK1_wtTHkbPQQoK4e-SABmKm54PP006iDJN_lfNqiAhZmVUi5cWTvpPT-VFpEG77Ne324il3ltYhpF1B-kqpgMWymESqPg9jer8niQofq_Q8vPoEPCPZvuSOYEHJklGZa8a",
+                        tags: vec!["mobile".to_string(), "tauri".to_string()],
+                        external_link: "#".to_string()
                     }
                 }
             }
@@ -111,7 +58,6 @@ pub fn BlogList() -> Element {
         Footer {}
     }
 }
-
 #[component]
 pub fn BlogPost(id: String) -> Element {
     // In a real app, we would fetch the post based on ID.
@@ -119,13 +65,13 @@ pub fn BlogPost(id: String) -> Element {
     // or just checking if id == "post-1".
 
     use_effect(move || {
-         // This is a browser-only effect to trigger highlight.js
-         // Dioxus 0.6+ often handles this differently but for prototype this is fine if web-sys is available
-         // or we just inject script.
-         // Since I added the script in index, window.hljs might be available.
-         // For now, I'll rely on the script being present.
-         // JS eval is needed to call highlightAll.
-         document::eval("if (window.hljs) window.hljs.highlightAll();");
+        // This is a browser-only effect to trigger highlight.js
+        // Dioxus 0.6+ often handles this differently but for prototype this is fine if web-sys is available
+        // or we just inject script.
+        // Since I added the script in index, window.hljs might be available.
+        // For now, I'll rely on the script being present.
+        // JS eval is needed to call highlightAll.
+        document::eval("if (window.hljs) window.hljs.highlightAll();");
     });
 
     rsx! {
