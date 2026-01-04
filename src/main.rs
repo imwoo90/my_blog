@@ -110,10 +110,6 @@ fn App() -> Element {
     use_effect(move || sync_theme(is_dark()));
 
     rsx! {
-        div {
-            style: "position: fixed; top: 0; left: 0; width: 100%; background: #ff0000; color: #ffffff; z-index: 99999; text-align: center; padding: 20px; font-weight: 900; font-size: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);",
-            "🚀 DEPLOYMENT TEST: Dioxus is alive and rendering!"
-        }
 
         // Standard Links
         document::Link { rel: "preconnect", href: "https://fonts.googleapis.com" }
@@ -133,6 +129,9 @@ fn App() -> Element {
         document::Script { src: "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" }
         document::Link { rel: "icon", href: FAVICON }
         document::Link { rel: "stylesheet", href: MAIN_CSS }
+
+        // GitHub Pages SPA Redirect Decoder
+        document::Script { "{REDIRECT_SCRIPT}" }
 
         // Root Wrapper: Reacts to is_dark signal
         div { class: if is_dark() { "dark" } else { "" },
