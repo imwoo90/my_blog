@@ -44,7 +44,7 @@ pub fn Home() -> Element {
                     }
                 }
 
-                section { class: "flex flex-col items-center text-center gap-6 bg-white/5 p-8 sm:p-12 rounded-lg transition-colors border border-white/5",
+                section { class: "flex flex-col items-center text-center gap-6 bg-white dark:bg-white/5 p-8 sm:p-12 rounded-lg transition-colors border border-text-dark/5 dark:border-white/5 shadow-sm dark:shadow-none",
                     SectionTitle { title: "Let's Build Together" }
                     p { class: "text-text-dark/80 dark:text-[#D4D4D4] text-base font-normal leading-normal max-w-2xl",
                         "I'm passionate about tackling challenging projects with Rust. If you're looking for a developer with deep experience in embedded systems, performance optimization, and cross-platform development, let's talk."

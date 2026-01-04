@@ -1479,6 +1479,12 @@
       color: var(--color-white);
     }
   }
+  .dark\:shadow-none {
+    &:where(.dark, .dark *) {
+      --tw-shadow: 0 0 #0000;
+      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    }
+  }
   .dark\:placeholder\:text-gray-400 {
     &:where(.dark, .dark *) {
       &::placeholder {

@@ -61,18 +61,23 @@ fn get_initial_theme() -> bool {
     false
 }
 
-/// Sync theme to storage (Pure Rust abstraction)
+/// Sync theme to storage and document root (Pure Rust abstraction)
 fn sync_theme(is_dark: bool) {
     #[cfg(target_arch = "wasm32")]
     {
         if let Some(window) = web_sys::window() {
+            // 1. Sync with document root (html tag) so that body background and Tailwind variants work correctly
+            if let Some(document) = window.document() {
+                if let Some(root) = document.document_element() {
+                    let _ = root.class_list().toggle_with_force("dark", is_dark);
+                }
+            }
+            // 2. Persist to localStorage
             if let Some(storage) = window.local_storage().ok().flatten() {
                 let _ = storage.set_item("theme", if is_dark { "dark" } else { "light" });
             }
         }
     }
-    // For Desktop, you could add:
-    // #[cfg(not(target_arch = "wasm32"))] { /* Save to local file using confy */ }
 }
 
 #[allow(non_snake_case)]
