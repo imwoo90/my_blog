@@ -10,8 +10,8 @@ pub fn Projects() -> Element {
             main { class: "flex flex-col gap-16 md:gap-24 mt-8 md:mt-16",
                 Section {
                     div { class: "px-4 pb-2 pt-5",
-                        h1 { class: "text-white text-3xl font-bold leading-tight tracking-[-0.015em]", "Projects" }
-                        p { class: "text-[#D4D4D4] mt-2", "A collection of my work, showcasing the versatility of Rust across the full stack." }
+                        h1 { class: "text-text-dark dark:text-white text-3xl font-bold leading-tight tracking-[-0.015em] transition-colors", "Projects" }
+                        p { class: "text-text-dark/70 dark:text-[#D4D4D4] mt-2 transition-colors", "A collection of my work, showcasing the versatility of Rust across the full stack." }
                     }
                     div { class: "grid grid-cols-1 md:grid-cols-2 gap-8",
                         Card {

@@ -14,19 +14,19 @@ pub fn BlogList() -> Element {
                 }
                 section { class: "flex flex-col md:flex-row gap-4 px-4 items-center",
                     div { class: "relative w-full md:flex-1",
-                        span { class: "material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400", "search" }
+                        span { class: "material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-dark/40 dark:text-gray-400", "search" }
                         input {
-                            class: "w-full bg-[#2a2a2a] border border-white/10 rounded-md h-12 pl-10 pr-4 text-white placeholder:text-gray-400 focus:ring-primary-light focus:border-primary-light",
+                            class: "w-full bg-white dark:bg-[#2a2a2a] border border-text-dark/10 dark:border-white/10 rounded-md h-12 pl-10 pr-4 text-text-dark dark:text-white placeholder:text-text-dark/40 dark:placeholder:text-gray-400 focus:ring-primary-light focus:border-primary-light transition-all",
                             placeholder: "Search articles...",
                             r#type: "text",
                         }
                     }
                     div { class: "flex flex-wrap gap-2 justify-center",
-                        button { class: "px-4 py-2 text-sm font-medium rounded-md bg-white/10 text-white hover:bg-white/20 transition-colors", "All" }
-                        button { class: "px-4 py-2 text-sm font-medium rounded-md bg-transparent text-gray-400 hover:bg-white/10 hover:text-white transition-colors", "bare-metal" }
-                        button { class: "px-4 py-2 text-sm font-medium rounded-md bg-transparent text-gray-400 hover:bg-white/10 hover:text-white transition-colors", "mobile" }
-                        button { class: "px-4 py-2 text-sm font-medium rounded-md bg-transparent text-gray-400 hover:bg-white/10 hover:text-white transition-colors", "web" }
-                        button { class: "px-4 py-2 text-sm font-medium rounded-md bg-transparent text-gray-400 hover:bg-white/10 hover:text-white transition-colors", "backend" }
+                        button { class: "px-4 py-2 text-sm font-medium rounded-md bg-text-dark/10 dark:bg-white/10 text-text-dark dark:text-white hover:bg-text-dark/20 dark:hover:bg-white/20 transition-colors", "All" }
+                        button { class: "px-4 py-2 text-sm font-medium rounded-md bg-transparent text-text-dark/60 dark:text-gray-400 hover:bg-text-dark/10 dark:hover:bg-white/10 hover:text-text-dark dark:hover:text-white transition-colors", "bare-metal" }
+                        button { class: "px-4 py-2 text-sm font-medium rounded-md bg-transparent text-text-dark/60 dark:text-gray-400 hover:bg-text-dark/10 dark:hover:bg-white/10 hover:text-text-dark dark:hover:text-white transition-colors", "mobile" }
+                        button { class: "px-4 py-2 text-sm font-medium rounded-md bg-transparent text-text-dark/60 dark:text-gray-400 hover:bg-text-dark/10 dark:hover:bg-white/10 hover:text-text-dark dark:hover:text-white transition-colors", "web" }
+                        button { class: "px-4 py-2 text-sm font-medium rounded-md bg-transparent text-text-dark/60 dark:text-gray-400 hover:bg-text-dark/10 dark:hover:bg-white/10 hover:text-text-dark dark:hover:text-white transition-colors", "backend" }
                     }
                 }
 
@@ -77,13 +77,13 @@ pub fn BlogPost(id: String) -> Element {
     rsx! {
         div { class: "layout-content-container flex flex-col w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16",
             article { class: "w-full max-w-3xl flex flex-col gap-10",
-                header { class: "flex flex-col gap-6 border-b border-white/5 pb-10",
-                    div { class: "flex items-center gap-2 text-sm text-gray-500 font-medium",
+                header { class: "flex flex-col gap-6 border-b border-text-dark/5 dark:border-white/5 pb-10",
+                    div { class: "flex items-center gap-2 text-sm text-text-dark/60 dark:text-gray-500 font-medium",
                         Link { class: "hover:text-primary-light transition-colors", to: Route::BlogList {}, "Blog" }
                         span { "›" }
-                        span { class: "truncate text-gray-400", "Bare-Metal Rust" }
+                        span { class: "truncate text-text-dark/40 dark:text-gray-400", "Bare-Metal Rust" }
                     }
-                    h1 { class: "text-white text-4xl sm:text-5xl font-extrabold leading-tight tracking-tight",
+                    h1 { class: "text-text-dark dark:text-white text-4xl sm:text-5xl font-extrabold leading-tight tracking-tight",
                         "Bare-Metal Rust: Blinking an LED"
                     }
                     div { class: "flex items-center gap-4 text-sm text-gray-400",
@@ -143,11 +143,11 @@ fn main() -> ! {{
                         ". This will include the Peripheral Access Crate (PAC) for our specific MCU, and a higher-level Hardware Abstraction Layer (HAL) crate that provides safer and more ergonomic APIs to control the hardware."
                     }
                 }
-                div { class: "mt-8 border-t border-white/5 pt-8",
-                     div { class: "flex flex-col sm:flex-row justify-between items-center gap-4 bg-white/5 p-6 rounded-xl",
-                        h3 { class: "text-lg font-bold text-white", "Share this article" }
+                div { class: "mt-8 border-t border-text-dark/5 dark:border-white/5 pt-8",
+                     div { class: "flex flex-col sm:flex-row justify-between items-center gap-4 bg-text-dark/5 dark:bg-white/5 p-6 rounded-xl",
+                        h3 { class: "text-lg font-bold text-text-dark dark:text-white", "Share this article" }
                         div { class: "flex items-center gap-3",
-                            button { class: "text-gray-400 hover:text-white hover:bg-[#1DA1F2]/20 p-2.5 rounded-lg transition-all",
+                            button { class: "text-text-dark/40 dark:text-gray-400 hover:text-text-dark dark:hover:text-white hover:bg-text-dark/10 dark:hover:bg-[#1DA1F2]/20 p-2.5 rounded-lg transition-all",
                                 span { class: "material-symbols-outlined", "share" }
                             }
                         }

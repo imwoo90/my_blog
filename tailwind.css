@@ -25,65 +25,59 @@
 /* Enable class-based dark mode */
 @variant dark (&:where(.dark, .dark *));
 
+@layer base {
+    body {
+        @apply bg-background-light text-text-dark dark:bg-background-dark dark:text-text-light transition-colors duration-300;
+    }
+}
+
 .material-symbols-outlined {
     font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
-/* Prose customization for dark mode blog content */
+/* Prose customization that respects light/dark mode */
 .prose {
-    color: #D4D4D4;
+    @apply text-text-dark/80 dark:text-text-light;
 }
 
 .prose h1,
 .prose h2,
 .prose h3 {
-    color: #FFFFFF;
+    @apply text-text-dark dark:text-text-heading font-bold;
     margin-top: 2.5rem;
     margin-bottom: 1.25rem;
 }
 
 .prose a {
-    color: #DEA584;
+    @apply text-primary hover:text-primary-light transition-colors;
     text-decoration: none;
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.2s;
-}
-
-.prose a:hover {
-    border-bottom-color: #DEA584;
 }
 
 .prose blockquote {
-    border-left-color: #DEA584;
-    border-left-width: 4px;
-    color: #a3a3a3;
-    background-color: rgba(255, 255, 255, 0.03);
+    @apply border-l-4 border-primary bg-text-dark/5 dark:bg-white/5 text-text-dark/60 dark:text-gray-400 italic;
     padding: 1rem 1.5rem;
     margin: 2rem 0;
     border-radius: 0 0.5rem 0.5rem 0;
-    font-style: italic;
 }
 
 .prose code {
-    color: #f5f5f5;
-    background-color: #2a2a2a;
-    padding: 0.2em 0.4em;
-    border-radius: 0.25rem;
-    font-weight: 500;
-    font-family: 'Roboto Mono', monospace;
-    font-size: 0.9em;
+    @apply bg-text-dark/5 dark:bg-white/10 text-text-dark dark:text-white px-1.5 py-0.5 rounded font-mono text-[0.9em] font-medium;
 }
 
 .prose pre {
-    background-color: #111111;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 1.5rem;
-    border-radius: 0.75rem;
-    overflow-x: auto;
-    margin: 2rem 0;
+    @apply bg-[#1a1b26] dark:bg-[#0d0d0d] border border-text-dark/10 dark:border-white/10 p-6 rounded-xl overflow-x-auto my-8 shadow-sm;
 }
 
 .prose p {
     margin-bottom: 1.5em;
     line-height: 1.8;
+}
+
+.prose ul,
+.prose ol {
+    @apply mb-6 ml-6 list-disc;
+}
+
+.prose li {
+    @apply mb-2;
 }

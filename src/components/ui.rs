@@ -44,13 +44,13 @@ pub fn Hero(
     };
 
     rsx! {
-        div { class: "w-full flex flex-col gap-6 {align_class} px-4 py-10 md:py-16",
+        div { class: "w-full flex flex-col gap-6 {align_class} px-4 py-10 md:py-16 transition-colors duration-300",
             div { class: "flex flex-col gap-4",
-                h1 { class: "text-white text-4xl md:text-6xl font-black leading-tight tracking-[-0.033em]",
+                h1 { class: "text-text-dark dark:text-white text-4xl md:text-6xl font-black leading-tight tracking-[-0.033em]",
                     "{title}"
                 }
                 if let Some(sub) = subtitle {
-                    p { class: "text-[#D4D4D4] text-lg md:text-xl font-normal leading-normal max-w-3xl mx-auto",
+                    p { class: "text-text-dark/80 dark:text-[#D4D4D4] text-lg md:text-xl font-normal leading-normal max-w-3xl mx-auto",
                         "{sub}"
                     }
                 }
@@ -77,10 +77,10 @@ pub fn Card(
             style: "background-image: url('{image_url}')"
         }
         div { class: "p-6 flex flex-col flex-grow",
-            h3 { class: "text-white text-xl font-bold leading-tight tracking-[-0.015em] group-hover:text-primary-light transition-colors",
+            h3 { class: "text-text-dark dark:text-white text-xl font-bold leading-tight tracking-[-0.015em] group-hover:text-primary-light transition-colors",
                 "{title}"
             }
-            p { class: "text-[#D4D4D4] text-base font-normal leading-normal mt-2 mb-4 flex-grow",
+            p { class: "text-text-dark/70 dark:text-[#D4D4D4] text-base font-normal leading-normal mt-2 mb-4 flex-grow",
                 "{description}"
             }
             div { class: "flex flex-wrap items-center gap-2 mb-4",
@@ -108,13 +108,14 @@ pub fn Card(
         rsx! {
             Link {
                 to: target,
-                class: "flex flex-col rounded-lg overflow-hidden bg-[#2a2a2a] border border-white/10 group transition-all duration-300 hover:bg-white/5",
+                class: "flex flex-col rounded-lg overflow-hidden bg-white dark:bg-[#2a2a2a] border border-text-dark/5 dark:border-white/10 group transition-all duration-300 hover:shadow-lg dark:hover:bg-white/5",
                 {content}
             }
         }
     } else {
         rsx! {
-            div { class: "flex flex-col rounded-lg overflow-hidden bg-[#2a2a2a] border border-white/10 group transition-all duration-300 hover:bg-white/5",
+            div {
+                class: "flex flex-col rounded-lg overflow-hidden bg-white dark:bg-[#2a2a2a] border border-text-dark/5 dark:border-white/10 group transition-all duration-300 hover:shadow-lg dark:hover:bg-white/5",
                 {content}
             }
         }
@@ -124,7 +125,7 @@ pub fn Card(
 #[component]
 pub fn Badge(text: String) -> Element {
     rsx! {
-        span { class: "text-xs font-mono bg-gray-700/50 text-gray-300 px-2 py-1 rounded",
+        span { class: "text-xs font-mono bg-text-dark/5 dark:bg-gray-700/50 text-text-dark/70 dark:text-gray-300 px-2 py-1 rounded transition-colors",
             "{text}"
         }
     }
@@ -136,7 +137,7 @@ pub fn PrimaryButton(
     to: Option<Route>,
     onclick: Option<EventHandler<MouseEvent>>,
 ) -> Element {
-    let class = "flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary-light text-[#1E1E1E] text-base font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity";
+    let class = "flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary-light text-text-dark text-base font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-all active:scale-95";
 
     if let Some(route) = to.clone() {
         rsx! {

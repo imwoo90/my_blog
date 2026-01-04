@@ -1,12 +1,13 @@
+use crate::components::*;
 use crate::views::Footer;
 use dioxus::prelude::*;
 
 #[component]
 pub fn About() -> Element {
     rsx! {
-        div { class: "layout-content-container flex flex-col w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8",
+        Container {
             main { class: "flex flex-col gap-16 md:gap-24 mt-8 md:mt-16",
-                section { class: "flex flex-col md:flex-row items-center gap-8 md:gap-12",
+                section { class: "flex flex-col md:flex-row items-center gap-8 md:gap-12 px-4",
                     div { class: "w-48 h-48 md:w-60 md:h-60 flex-shrink-0",
                         img {
                             class: "w-full h-full rounded-full object-cover border-4 border-primary-light/50 shadow-lg",
@@ -15,74 +16,68 @@ pub fn About() -> Element {
                         }
                     }
                     div { class: "flex flex-col gap-4 text-center md:text-left",
-                        h1 { class: "text-white text-4xl md:text-5xl font-black leading-tight tracking-[-0.033em]",
+                        h1 { class: "text-text-dark dark:text-white text-4xl md:text-5xl font-black leading-tight tracking-[-0.033em] transition-colors",
                             "Hi, I'm Alex."
                         }
-                        p { class: "text-lg md:text-xl font-normal leading-normal text-[#D4D4D4]",
+                        p { class: "text-lg md:text-xl font-normal leading-normal text-text-dark/80 dark:text-[#D4D4D4] transition-colors",
                             "I'm a full-stack embedded developer with a singular passion: leveraging the power of Rust to build robust, efficient, and secure software across every conceivable platform. From the tight constraints of bare-metal microcontrollers to the vast scale of cloud backends, I believe Rust is the key to a new era of reliable systems."
                         }
                     }
                 }
-                section { class: "grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12",
+                Section { class: "grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 px-4",
                     div { class: "flex flex-col gap-4",
-                        h2 { class: "text-white text-3xl font-bold leading-tight tracking-[-0.015em] border-b border-white/10 pb-3",
+                        h2 { class: "text-text-dark dark:text-white text-3xl font-bold leading-tight tracking-[-0.015em] border-b border-text-dark/10 dark:border-white/10 pb-3 transition-colors",
                             "My Philosophy"
                         }
-                        p { class: "text-base font-normal leading-relaxed text-[#D4D4D4]",
+                        p { class: "text-base font-normal leading-relaxed text-text-dark/80 dark:text-[#D4D4D4] transition-colors",
                             "The \"Rust-for-everything\" philosophy isn't just a technical preference; it's a commitment to quality. It means applying the principles of memory safety, zero-cost abstractions, and fearless concurrency to every layer of the stack. This approach minimizes bugs, maximizes performance, and creates software that is a pleasure to maintain and extend, whether it's firmware for a tiny IoT device or a high-traffic web service."
                         }
                     }
                     div { class: "flex flex-col gap-4",
-                        h2 { class: "text-white text-3xl font-bold leading-tight tracking-[-0.015em] border-b border-white/10 pb-3",
+                        h2 { class: "text-text-dark dark:text-white text-3xl font-bold leading-tight tracking-[-0.015em] border-b border-text-dark/10 dark:border-white/10 pb-3 transition-colors",
                             "Core Skills"
                         }
                         div { class: "flex flex-wrap gap-3",
-                            span { class: "text-sm font-mono bg-gray-700/50 text-gray-300 px-3 py-1.5 rounded-lg", "Embedded Rust" }
-                            span { class: "text-sm font-mono bg-gray-700/50 text-gray-300 px-3 py-1.5 rounded-lg", "Bare-Metal Firmware" }
-                            span { class: "text-sm font-mono bg-gray-700/50 text-gray-300 px-3 py-1.5 rounded-lg", "RTOS Integration" }
-                            span { class: "text-sm font-mono bg-gray-700/50 text-gray-300 px-3 py-1.5 rounded-lg", "WebAssembly (WASM)" }
-                            span { class: "text-sm font-mono bg-gray-700/50 text-gray-300 px-3 py-1.5 rounded-lg", "Async Rust (Tokio)" }
-                            span { class: "text-sm font-mono bg-gray-700/50 text-gray-300 px-3 py-1.5 rounded-lg", "Backend APIs (axum)" }
-                            span { class: "text-sm font-mono bg-gray-700/50 text-gray-300 px-3 py-1.5 rounded-lg", "Cross-Platform Mobile" }
-                            span { class: "text-sm font-mono bg-gray-700/50 text-gray-300 px-3 py-1.5 rounded-lg", "CI/CD & DevOps" }
-                            span { class: "text-sm font-mono bg-gray-700/50 text-gray-300 px-3 py-1.5 rounded-lg", "Linux Systems" }
+                            for skill in ["Embedded Rust", "Bare-Metal Firmware", "RTOS Integration", "WebAssembly (WASM)", "Async Rust (Tokio)", "Backend APIs (axum)", "Cross-Platform Mobile", "CI/CD & DevOps", "Linux Systems"] {
+                                span { class: "text-sm font-mono bg-text-dark/5 dark:bg-gray-700/50 text-text-dark/70 dark:text-gray-300 px-3 py-1.5 rounded-lg transition-colors", "{skill}" }
+                            }
                         }
                     }
                 }
-                section { class: "flex flex-col gap-8",
-                    h2 { class: "text-white text-3xl font-bold leading-tight tracking-[-0.015em] border-b border-white/10 pb-3",
+                Section { class: "flex flex-col gap-8 px-4 mb-20",
+                    h2 { class: "text-text-dark dark:text-white text-3xl font-bold leading-tight tracking-[-0.015em] border-b border-text-dark/10 dark:border-white/10 pb-3 transition-colors",
                         "My Journey"
                     }
                     div { class: "relative pl-6 border-l-2 border-primary-light/30",
                         div { class: "mb-10 ml-4",
-                            div { class: "absolute w-4 h-4 bg-primary-light rounded-full mt-1.5 -left-2.5 border border-background-dark" }
-                            time { class: "mb-1 text-sm font-normal leading-none text-gray-400", "2022 - Present" }
-                            h3 { class: "text-lg font-semibold text-white", "Lead Embedded Engineer, Innovatech Dynamics" }
-                            p { class: "text-base font-normal text-[#D4D4D4]",
+                            div { class: "absolute w-4 h-4 bg-primary-light rounded-full mt-1.5 -left-2.5 border border-background-light dark:border-background-dark" }
+                            time { class: "mb-1 text-sm font-normal leading-none text-text-dark/40 dark:text-gray-400 transition-colors", "2022 - Present" }
+                            h3 { class: "text-lg font-semibold text-text-dark dark:text-white transition-colors", "Lead Embedded Engineer, Innovatech Dynamics" }
+                            p { class: "text-base font-normal text-text-dark/70 dark:text-[#D4D4D4] transition-colors",
                                 "Architected and developed a new generation of IoT devices, migrating the entire firmware from C to Rust. Achieved a 40% reduction in memory usage and eliminated a whole class of memory corruption bugs."
                             }
                         }
                         div { class: "mb-10 ml-4",
-                            div { class: "absolute w-4 h-4 bg-primary-light rounded-full mt-1.5 -left-2.5 border border-background-dark" }
-                            time { class: "mb-1 text-sm font-normal leading-none text-gray-400", "2020 - 2022" }
-                            h3 { class: "text-lg font-semibold text-white", "Full-Stack Developer, QuantumLeap Solutions" }
-                            p { class: "text-base font-normal text-[#D4D4D4]",
+                            div { class: "absolute w-4 h-4 bg-primary-light rounded-full mt-1.5 -left-2.5 border border-background-light dark:border-background-dark" }
+                            time { class: "mb-1 text-sm font-normal leading-none text-text-dark/40 dark:text-gray-400 transition-colors", "2020 - 2022" }
+                            h3 { class: "text-lg font-semibold text-text-dark dark:text-white transition-colors", "Full-Stack Developer, QuantumLeap Solutions" }
+                            p { class: "text-base font-normal text-text-dark/70 dark:text-[#D4D4D4] transition-colors",
                                 "Built high-performance backend services in Rust and explored its potential for frontend development using WebAssembly, creating interactive data visualization tools that ran entirely in the browser."
                             }
                         }
                         div { class: "mb-10 ml-4",
-                            div { class: "absolute w-4 h-4 bg-primary-light rounded-full mt-1.5 -left-2.5 border border-background-dark" }
-                            time { class: "mb-1 text-sm font-normal leading-none text-gray-400", "2018" }
-                            h3 { class: "text-lg font-semibold text-white", "The Spark: Discovering Rust" }
-                            p { class: "text-base font-normal text-[#D4D4D4]",
+                            div { class: "absolute w-4 h-4 bg-primary-light rounded-full mt-1.5 -left-2.5 border border-background-light dark:border-background-dark" }
+                            time { class: "mb-1 text-sm font-normal leading-none text-text-dark/40 dark:text-gray-400 transition-colors", "2018" }
+                            h3 { class: "text-lg font-semibold text-text-dark dark:text-white transition-colors", "The Spark: Discovering Rust" }
+                            p { class: "text-base font-normal text-text-dark/70 dark:text-[#D4D4D4] transition-colors",
                                 "While working on a complex C++ project, I discovered Rust. Its promise of safety without sacrificing performance was a revelation that set the course for my entire career."
                             }
                         }
                         div { class: "ml-4",
-                            div { class: "absolute w-4 h-4 bg-primary-light rounded-full mt-1.5 -left-2.5 border border-background-dark" }
-                            time { class: "mb-1 text-sm font-normal leading-none text-gray-400", "2016 - 2018" }
-                            h3 { class: "text-lg font-semibold text-white", "Firmware Engineer, Core Systems Inc." }
-                            p { class: "text-base font-normal text-[#D4D4D4]",
+                            div { class: "absolute w-4 h-4 bg-primary-light rounded-full mt-1.5 -left-2.5 border border-background-light dark:border-background-dark" }
+                            time { class: "mb-1 text-sm font-normal leading-none text-text-dark/40 dark:text-gray-400 transition-colors", "2016 - 2018" }
+                            h3 { class: "text-lg font-semibold text-text-dark dark:text-white transition-colors", "Firmware Engineer, Core Systems Inc." }
+                            p { class: "text-base font-normal text-text-dark/70 dark:text-[#D4D4D4] transition-colors",
                                 "My professional journey began here, writing C and C++ for industrial control systems. It was here I learned the criticality of robust, reliable code in resource-constrained environments."
                             }
                         }

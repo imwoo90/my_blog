@@ -4,10 +4,11 @@ use dioxus::prelude::*;
 #[component]
 pub fn Navbar() -> Element {
     let mut mobile_menu_open = use_signal(|| false);
+    let mut is_dark = use_context::<Signal<bool>>();
 
     rsx! {
-        header { class: "flex items-center justify-between whitespace-nowrap border-b border-solid border-white/10 px-4 sm:px-6 lg:px-8 py-4 sticky top-0 bg-[#1E1E1E]/80 backdrop-blur-sm z-50",
-            Link { to: Route::Home {}, class: "flex items-center gap-4 text-white",
+        header { class: "flex items-center justify-between whitespace-nowrap border-b border-solid border-text-dark/10 dark:border-white/10 px-4 sm:px-6 lg:px-8 py-4 sticky top-0 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm z-50 transition-colors duration-300",
+            Link { to: Route::Home {}, class: "flex items-center gap-4 text-text-dark dark:text-white",
                 div { class: "size-6 text-primary-light",
                     svg {
                         fill: "none",
@@ -25,11 +26,11 @@ pub fn Navbar() -> Element {
                         }
                     }
                 }
-                h2 { class: "text-white text-xl font-bold leading-tight tracking-[-0.015em]",
+                h2 { class: "text-text-dark dark:text-white text-xl font-bold leading-tight tracking-[-0.015em]",
                     "Rust's Horizon"
                 }
             }
-            div { class: "flex flex-1 justify-end",
+            div { class: "flex flex-1 justify-end items-center gap-4",
                 nav { class: "hidden md:flex items-center gap-8",
                     NavLink { to: Route::Home {}, "Home" }
                     NavLink { to: Route::BlogList {}, "Blog" }
@@ -38,7 +39,14 @@ pub fn Navbar() -> Element {
                     NavLink { to: Route::Contact {}, "Contact" }
                 }
                 button {
-                    class: "md:hidden text-white",
+                    class: "p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/5 text-text-dark dark:text-white transition-colors",
+                    onclick: move |_| is_dark.set(!is_dark()),
+                    span { class: "material-symbols-outlined",
+                        if is_dark() { "light_mode" } else { "dark_mode" }
+                    }
+                }
+                button {
+                    class: "md:hidden text-text-dark dark:text-white p-2",
                     onclick: move |_| mobile_menu_open.set(!mobile_menu_open()),
                     span { class: "material-symbols-outlined",
                         if mobile_menu_open() { "close" } else { "menu" }
@@ -46,7 +54,7 @@ pub fn Navbar() -> Element {
                 }
             }
             if mobile_menu_open() {
-                nav { class: "absolute top-full left-0 w-full bg-[#1E1E1E] border-b border-white/10 p-4 md:hidden flex flex-col shadow-2xl",
+                nav { class: "absolute top-full left-0 w-full bg-background-light dark:bg-background-dark border-b border-text-dark/10 dark:border-white/10 p-4 md:hidden flex flex-col shadow-2xl transition-colors duration-300",
                     MobileLink { to: Route::Home {}, onclick: move |_| mobile_menu_open.set(false), "Home" }
                     MobileLink { to: Route::BlogList {}, onclick: move |_| mobile_menu_open.set(false), "Blog" }
                     MobileLink { to: Route::Projects {}, onclick: move |_| mobile_menu_open.set(false), "Projects" }
@@ -64,9 +72,15 @@ fn NavLink(to: Route, children: Element) -> Element {
     let current_route: Route = use_route();
     // Simple check: Exact match or prefix match for some routes could be added if needed.
     // Dioxus router matching logic:
-    let is_active = current_route == to || (to == Route::BlogList {} && matches!(current_route, Route::BlogPost { .. })) || (to == Route::Projects {} && matches!(current_route, Route::WasmProject {}));
+    let is_active = current_route == to
+        || (to == Route::BlogList {} && matches!(current_route, Route::BlogPost { .. }))
+        || (to == Route::Projects {} && matches!(current_route, Route::WasmProject {}));
 
-    let active_class = if is_active { "text-primary-light" } else { "text-[#D4D4D4] hover:text-primary-light" };
+    let active_class = if is_active {
+        "text-primary-light"
+    } else {
+        "text-text-dark/70 dark:text-[#D4D4D4] hover:text-primary-light"
+    };
 
     rsx! {
         Link {
@@ -82,7 +96,7 @@ fn MobileLink(to: Route, onclick: EventHandler<MouseEvent>, children: Element) -
     rsx! {
         Link {
             to: to,
-            class: "text-[#D4D4D4] hover:text-primary-light text-lg font-medium py-3 border-b border-white/5 last:border-0",
+            class: "text-text-dark dark:text-[#D4D4D4] hover:text-primary-light text-lg font-medium py-3 border-b border-text-dark/5 dark:border-white/5 last:border-0 transition-colors",
             onclick: move |e| onclick.call(e),
             {children}
         }

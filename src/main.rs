@@ -1,5 +1,5 @@
-use dioxus::prelude::*;
-
+use ::serde_json::Value;
+use dioxus::{document::eval, prelude::*};
 use views::{About, BlogList, BlogPost, Contact, Home, Navbar, NotFound, Projects, WasmProject};
 
 mod components;
@@ -43,9 +43,54 @@ fn main() {
     dioxus::launch(App);
 }
 
+const THEME_SCRIPT: &str = r#"
+    (function() {
+        const saved = localStorage.getItem("theme");
+        if (saved === "dark" || (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+            document.documentElement.classList.add("dark");
+        } else {
+            document.documentElement.classList.remove("dark");
+        }
+    })();
+"#;
+
 #[component]
 fn App() -> Element {
+    let mut is_dark = use_signal(|| false);
+    use_context_provider(|| is_dark);
+
+    // Sync theme with document class and localStorage
+    use_effect(move || {
+        if is_dark() {
+            eval("document.documentElement.classList.add('dark'); localStorage.setItem('theme', 'dark');");
+        } else {
+            eval("document.documentElement.classList.remove('dark'); localStorage.setItem('theme', 'light');");
+        }
+    });
+
+    // Initialize theme from localStorage or system preference
+    // This runs once on mount to sync the signal with the actual state
+    use_effect(move || {
+        spawn(async move {
+            let mut eval_handle = eval(
+                r#"
+                const saved = localStorage.getItem('theme');
+                if (saved) {
+                    dioxus.send(saved === 'dark');
+                } else {
+                    dioxus.send(window.matchMedia('(prefers-color-scheme: dark)').matches);
+                }
+            "#,
+            );
+            if let Ok(Value::Bool(d)) = eval_handle.recv().await {
+                is_dark.set(d);
+            }
+        });
+    });
+
     rsx! {
+        // Script to prevent flash of unstyled content (FOUC)
+        script { "{THEME_SCRIPT}" }
         // Tailwind Script for CDN fallback if build fails (optional, but good for proto)
         // script { src: "https://cdn.tailwindcss.com?plugins=forms,container-queries" }
         // document::Script {
