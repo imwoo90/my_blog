@@ -30,6 +30,13 @@ jobs:
         run: |
           dx build --release --platform web
 
+      - name: Post Build Adjustments
+        run: |
+          # Ensure 404.html is at the root for GitHub Pages routing
+          cp target/dx/my_blog/release/web/public/assets/404.html target/dx/my_blog/release/web/public/404.html
+          # Disable Jekyll to ensure files starting with underscore are loaded
+          touch target/dx/my_blog/release/web/public/.nojekyll
+
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
