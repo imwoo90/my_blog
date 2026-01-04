@@ -110,6 +110,11 @@ fn App() -> Element {
     use_effect(move || sync_theme(is_dark()));
 
     rsx! {
+        div {
+            style: "position: fixed; top: 0; left: 0; width: 100%; background: #ff0000; color: #ffffff; z-index: 99999; text-align: center; padding: 20px; font-weight: 900; font-size: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);",
+            "🚀 DEPLOYMENT TEST: Dioxus is alive and rendering!"
+        }
+
         // Standard Links
         document::Link { rel: "preconnect", href: "https://fonts.googleapis.com" }
         document::Link {
@@ -129,13 +134,9 @@ fn App() -> Element {
         document::Link { rel: "icon", href: FAVICON }
         document::Link { rel: "stylesheet", href: MAIN_CSS }
 
-        // GitHub Pages SPA Redirect Decoder
-        // document::Script { "{REDIRECT_SCRIPT}" }
-
         // Root Wrapper: Reacts to is_dark signal
         div { class: if is_dark() { "dark" } else { "" },
             div { class: "bg-background-light dark:bg-background-dark text-text-dark dark:text-text-light min-h-screen transition-colors duration-300",
-                div { class: "p-4 bg-red-500 text-white font-bold text-center", "Dioxus is running!" }
                 Router::<Route> {}
             }
         }
