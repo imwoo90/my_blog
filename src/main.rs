@@ -130,11 +130,12 @@ fn App() -> Element {
         document::Link { rel: "stylesheet", href: MAIN_CSS }
 
         // GitHub Pages SPA Redirect Decoder
-        document::Script { "{REDIRECT_SCRIPT}" }
+        // document::Script { "{REDIRECT_SCRIPT}" }
 
         // Root Wrapper: Reacts to is_dark signal
         div { class: if is_dark() { "dark" } else { "" },
             div { class: "bg-background-light dark:bg-background-dark text-text-dark dark:text-text-light min-h-screen transition-colors duration-300",
+                div { class: "p-4 bg-red-500 text-white font-bold text-center", "Dioxus is running!" }
                 Router::<Route> {}
             }
         }
