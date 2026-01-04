@@ -38,6 +38,37 @@ const FAVICON: Asset = asset!("/assets/favicon.ico");
 const MAIN_CSS: Asset = asset!("assets/tailwind.css");
 
 fn main() {
+    #[cfg(target_arch = "wasm32")]
+    {
+        // GitHub Pages SPA Redirect Handling
+        if let Some(window) = web_sys::window() {
+            if let Ok(location) = window.location() {
+                if let Ok(search) = location.search() {
+                    if search.starts_with("?p=/") {
+                        let path = search[3..].split('&').next().unwrap_or("/");
+                        let decoded_path = path.replace("~and~", "&");
+
+                        if let Ok(history) = window.history() {
+                            let pathname = location.pathname().unwrap_or_default();
+                            let base = if pathname.ends_with('/') {
+                                &pathname[..pathname.len() - 1]
+                            } else {
+                                &pathname
+                            };
+
+                            let new_url = format!("{}{}", base, decoded_path);
+                            // Clean up the URL before Dioxus starts
+                            let _ = history.replace_state_with_url(
+                                &unsafe { web_sys::js_sys::JSON::parse("null").unwrap() },
+                                "",
+                                Some(&new_url),
+                            );
+                        }
+                    }
+                }
+            }
+        }
+    }
     dioxus::launch(App);
 }
 
@@ -79,29 +110,6 @@ fn sync_theme(is_dark: bool) {
     }
 }
 
-const REDIRECT_SCRIPT: &str = r#"
-(function(l) {
-    if (l.search[1] === 'p') {
-        var decoded = l.search.slice(1).split('&').map(function(s) { 
-            return s.replace(/~and~/g, '&') 
-        }).filter(function(s) {
-            return s.slice(0, 2) === 'p='
-        })[0];
-        if (decoded) {
-            window.history.replaceState(null, null,
-                l.pathname.slice(0, -1) + decoded.slice(2) +
-                (l.search.slice(1).split('&').filter(function(s) {
-                    return s.slice(0, 2) === 'q='
-                })[0] || '').slice(2).replace(/~and~/g, '&') +
-                l.hash
-            );
-            // Force router to re-evaluate URL
-            window.dispatchEvent(new Event('popstate'));
-        }
-    }
-}(window.location))
-"#;
-
 #[allow(non_snake_case)]
 #[component]
 fn App() -> Element {
@@ -131,9 +139,6 @@ fn App() -> Element {
         document::Script { src: "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" }
         document::Link { rel: "icon", href: FAVICON }
         document::Link { rel: "stylesheet", href: MAIN_CSS }
-
-        // GitHub Pages SPA Redirect Decoder
-        document::Script { "{REDIRECT_SCRIPT}" }
 
         // Root Wrapper: Reacts to is_dark signal
         div { class: if is_dark() { "dark" } else { "" },
