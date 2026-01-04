@@ -28,7 +28,7 @@ jobs:
 
       - name: Build with Dioxus
         run: |
-          dx bundle --release --platform web --out-dir docs
+          dx bundle --out-dir docs
 
       - name: Post Build Adjustments
         run: |
@@ -42,3 +42,4 @@ jobs:
         with:
           folder: docs
           branch: gh-pages
+          clean: true
