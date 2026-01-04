@@ -28,17 +28,17 @@ jobs:
 
       - name: Build with Dioxus
         run: |
-          dx build --release --platform web
+          dx bundle --release --platform web --out-dir docs
 
       - name: Post Build Adjustments
         run: |
-          # Ensure 404.html is at the root for GitHub Pages routing
-          cp assets/404.html target/dx/my_blog/release/web/public/404.html
-          # Disable Jekyll to ensure files starting with underscore are loaded
-          touch target/dx/my_blog/release/web/public/.nojekyll
+          # Move static content from docs/public to docs as per official guide
+          mv docs/public/* docs/
+          # Copy index.html to 404.html to handle client-side routing
+          cp docs/index.html docs/404.html
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: target/dx/my_blog/release/web/public
+          folder: docs
           branch: gh-pages

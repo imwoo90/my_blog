@@ -10,7 +10,6 @@
     --color-yellow-500: oklch(79.5% 0.184 86.047);
     --color-green-500: oklch(72.3% 0.219 149.579);
     --color-blue-400: oklch(70.7% 0.165 254.624);
-    --color-blue-500: oklch(62.3% 0.214 259.815);
     --color-gray-300: oklch(87.2% 0.01 258.338);
     --color-gray-400: oklch(70.7% 0.022 261.325);
     --color-gray-500: oklch(55.1% 0.027 264.364);
@@ -74,7 +73,6 @@
     --color-text-light: #D4D4D4;
     --color-text-dark: #1E1E1E;
     --color-text-heading: #FFFFFF;
-    --color-border-dark: rgba(255, 255, 255, 0.1);
   }
 }
 @layer base {
@@ -228,6 +226,9 @@
   }
   .relative {
     position: relative;
+  }
+  .static {
+    position: static;
   }
   .sticky {
     position: sticky;

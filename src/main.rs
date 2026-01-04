@@ -38,36 +38,6 @@ const FAVICON: Asset = asset!("/assets/favicon.ico");
 const MAIN_CSS: Asset = asset!("assets/tailwind.css");
 
 fn main() {
-    #[cfg(target_arch = "wasm32")]
-    {
-        // GitHub Pages SPA Redirect Handling
-        if let Some(window) = web_sys::window() {
-            let location = window.location();
-            if let Ok(search) = location.search() {
-                if search.starts_with("?p=/") {
-                    let path = search[3..].split('&').next().unwrap_or("/");
-                    let decoded_path = path.replace("~and~", "&");
-
-                    if let Ok(history) = window.history() {
-                        let pathname = location.pathname().unwrap_or_default();
-                        let base = if pathname.ends_with('/') {
-                            &pathname[..pathname.len() - 1]
-                        } else {
-                            &pathname
-                        };
-
-                        let new_url = format!("{}{}", base, decoded_path);
-                        // Clean up the URL before Dioxus starts
-                        let _ = history.replace_state_with_url(
-                            &wasm_bindgen::JsValue::NULL,
-                            "",
-                            Some(&new_url),
-                        );
-                    }
-                }
-            }
-        }
-    }
     dioxus::launch(App);
 }
 
