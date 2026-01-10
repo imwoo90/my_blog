@@ -28,13 +28,15 @@ jobs:
 
       - name: Build with Dioxus
         run: |
-          dx build --ssg --release
+          dx bundle --out-dir docs
 
       - name: Post Build Adjustments
         run: |
-          # 1. 빌드 결과물 이동 (SSG 결과물은 target/dx/PROJECT_NAME/release/web/public 에 생성됩니다)
-          mkdir -p docs
-          cp -r target/dx/my_blog/release/web/public/* docs/
+          # 1. 빌드 결과물 이동
+          mv docs/public/* docs/
+
+          # 2. 404.html 생성
+          cp docs/index.html docs/404.html
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
