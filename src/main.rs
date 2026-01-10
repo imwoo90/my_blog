@@ -103,10 +103,6 @@ fn App() -> Element {
             href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Roboto+Mono&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap",
             rel: "stylesheet",
         }
-        document::Link {
-            href: "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css",
-            rel: "stylesheet",
-        }
         document::Script { src: "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" }
         document::Link { rel: "icon", href: FAVICON }
         document::Link { rel: "stylesheet", href: MAIN_CSS }

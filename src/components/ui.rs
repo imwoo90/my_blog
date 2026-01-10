@@ -137,7 +137,7 @@ pub fn PrimaryButton(
     to: Option<Route>,
     onclick: Option<EventHandler<MouseEvent>>,
 ) -> Element {
-    let class = "flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary-light text-text-dark text-base font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-all active:scale-95";
+    let class = "flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary-light text-text-dark text-base font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-all active:scale-95 shadow-md hover:shadow-lg";
 
     if let Some(route) = to.clone() {
         rsx! {
@@ -249,7 +249,7 @@ pub fn TimelineItem(
     };
     rsx! {
         div { class: "{spacing_class} ml-4 relative",
-            div { class: "absolute w-4 h-4 bg-primary-light rounded-full mt-1.5 -left-6.5 border border-background-light dark:border-background-dark" }
+            div { class: "absolute w-4 h-4 bg-primary rounded-full mt-1.5 -left-6.5 border border-background-light dark:border-background-dark" }
             time { class: "mb-1 text-sm font-normal leading-none text-text-dark/40 dark:text-gray-400 transition-colors",
                 "{date}"
             }
