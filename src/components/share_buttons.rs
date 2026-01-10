@@ -3,13 +3,13 @@ use dioxus::prelude::*;
 #[component]
 pub fn ShareButtons() -> Element {
     rsx! {
-        div { class: "mt-8 border-t border-white/5 pt-8",
-            div { class: "flex flex-col sm:flex-row justify-between items-center gap-4 bg-white/5 p-6 rounded-xl",
-                h3 { class: "text-lg font-bold text-white", "Share this article" }
+        div { class: "mt-8 border-t border-text-dark/10 dark:border-white/5 pt-8",
+            div { class: "flex flex-col sm:flex-row justify-between items-center gap-4 bg-text-dark/5 dark:bg-white/5 p-6 rounded-xl",
+                h3 { class: "text-lg font-bold text-text-dark dark:text-white", "Share this article" }
                 div { class: "flex items-center gap-3",
                     a {
                         "aria-label": "Share on Twitter",
-                        class: "text-gray-400 hover:text-white hover:bg-[#1DA1F2]/20 p-2.5 rounded-lg transition-all",
+                        class: "text-text-dark/60 dark:text-gray-400 hover:text-primary dark:hover:text-white hover:bg-primary/10 dark:hover:bg-[#1DA1F2]/20 p-2.5 rounded-lg transition-all",
                         href: "#",
                         svg {
                             "aria-hidden": "true",
@@ -21,7 +21,7 @@ pub fn ShareButtons() -> Element {
                     }
                     a {
                         "aria-label": "Share on LinkedIn",
-                        class: "text-gray-400 hover:text-white hover:bg-[#0A66C2]/20 p-2.5 rounded-lg transition-all",
+                        class: "text-text-dark/60 dark:text-gray-400 hover:text-primary dark:hover:text-white hover:bg-primary/10 dark:hover:bg-[#0A66C2]/20 p-2.5 rounded-lg transition-all",
                         href: "#",
                         svg {
                             "aria-hidden": "true",
@@ -33,7 +33,7 @@ pub fn ShareButtons() -> Element {
                     }
                     a {
                         "aria-label": "Share on Facebook",
-                        class: "text-gray-400 hover:text-white hover:bg-[#1877F2]/20 p-2.5 rounded-lg transition-all",
+                        class: "text-text-dark/60 dark:text-gray-400 hover:text-primary dark:hover:text-white hover:bg-primary/10 dark:hover:bg-[#1877F2]/20 p-2.5 rounded-lg transition-all",
                         href: "#",
                         svg {
                             "aria-hidden": "true",
