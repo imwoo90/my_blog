@@ -118,7 +118,7 @@ fn NavLink(to: Route, children: Element) -> Element {
     // Dioxus router matching logic:
     let is_active = current_route == to
         || (to == Route::BlogList {} && matches!(current_route, Route::BlogPost { .. }))
-        || (to == Route::Projects {} && matches!(current_route, Route::WasmProject {}));
+        || (to == Route::Projects {} && matches!(current_route, Route::ProjectDetail { .. }));
 
     let active_class = if is_active {
         "text-primary-light"

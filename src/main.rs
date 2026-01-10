@@ -1,7 +1,10 @@
+use components::ProjectDetail;
 use dioxus::prelude::*;
-use views::{About, BlogList, BlogPost, Contact, Home, Navbar, NotFound, Projects, WasmProject};
+use views::{About, BlogList, BlogPost, Contact, Home, Navbar, NotFound, Projects};
 
 mod components;
+mod posts;
+mod projects_data;
 mod views;
 
 #[derive(Debug, Clone, Routable, PartialEq)]
@@ -19,8 +22,8 @@ enum Route {
     #[route("/projects")]
     Projects {},
 
-    #[route("/projects/wasm")]
-    WasmProject {},
+    #[route("/projects/:id")]
+    ProjectDetail { id: String },
 
     #[route("/about")]
     About {},
