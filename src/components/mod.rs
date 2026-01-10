@@ -1,12 +1,6 @@
 pub mod blog;
 pub mod project_detail;
-pub mod share_buttons;
-pub mod comments;
-pub mod call_to_action;
 pub mod ui;
 pub use blog::{BlogCategories, BlogHero, BlogSearch};
 pub use project_detail::ProjectDetail;
-pub use share_buttons::ShareButtons;
-pub use comments::{Comments, Comment};
-pub use call_to_action::CallToAction;
 pub use ui::*;
