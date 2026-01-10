@@ -1,35 +1,36 @@
+use components::ProjectDetail;
 use dioxus::prelude::*;
-use views::{About, BlogList, BlogPost, Contact, Home, Navbar, NotFound, Projects, WasmProject};
+use views::{About, BlogList, BlogPost, Contact, Home, Navbar, NotFound, Projects};
 
 mod components;
+mod posts;
+mod projects_data;
 mod views;
 
 #[derive(Debug, Clone, Routable, PartialEq)]
-#[rustfmt::skip]
 enum Route {
     #[layout(Navbar)]
-        #[route("/")]
-        Home {},
+    #[route("/")]
+    Home {},
 
-        #[route("/blog")]
-        BlogList {},
+    #[route("/blog")]
+    BlogList {},
 
-        #[route("/blog/:id")]
-        BlogPost { id: String },
+    #[route("/blog/:id")]
+    BlogPost { id: String },
 
-        #[route("/projects")]
-        Projects {},
+    #[route("/projects")]
+    Projects {},
 
-        #[route("/projects/wasm")]
-        WasmProject {},
+    #[route("/projects/:id")]
+    ProjectDetail { id: String },
 
-        #[route("/about")]
-        About {},
+    #[route("/about")]
+    About {},
 
-        #[route("/contact")]
-        Contact {},
+    #[route("/contact")]
+    Contact {},
     #[end_layout]
-
     #[route("/:..segments")]
     NotFound { segments: Vec<String> },
 }
@@ -61,19 +62,20 @@ fn get_initial_theme() -> bool {
 }
 
 /// Sync theme to storage and document root (Pure Rust abstraction)
-fn sync_theme(is_dark: bool) {
+#[warn(unused_variables)]
+fn sync_theme(_is_dark: bool) {
     #[cfg(target_arch = "wasm32")]
     {
         if let Some(window) = web_sys::window() {
             // 1. Sync with document root (html tag) so that body background and Tailwind variants work correctly
             if let Some(document) = window.document() {
                 if let Some(root) = document.document_element() {
-                    let _ = root.class_list().toggle_with_force("dark", is_dark);
+                    let _ = root.class_list().toggle_with_force("dark", _is_dark);
                 }
             }
             // 2. Persist to localStorage
             if let Some(storage) = window.local_storage().ok().flatten() {
-                let _ = storage.set_item("theme", if is_dark { "dark" } else { "light" });
+                let _ = storage.set_item("theme", if _is_dark { "dark" } else { "light" });
             }
         }
     }

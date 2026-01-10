@@ -32,7 +32,9 @@ pub fn Home() -> Element {
                             description: "Learn how to leverage Rust's performance and safety in the browser by compiling it to WebAssembly.",
                             image_url: "https://lh3.googleusercontent.com/aida-public/AB6AXuAI1Cr-l7Wo5cgHt_zfG7BK8WvHPYWk5oEm-9oEQ6_MylTr-gO7ZrldH3pUrirQ5dYe4yZDhwcV-arSM4h3WA2urB99awKGkr9SLyWeteJEQExthZdm_fK0mqi3c95QNudHSRPVSZIyywMm-LADZqGhXreY55_EqUksKyzJXbGh43v6TWyfjFjAPn1a4OPM0KYZ-1joKgoI6uEnbR-6-cn4GYPzcL8ari8x_9XuWah3PJcoY7eqIyd4R-RNA0bwyrgkJRXbMCMI7Qeu",
                             tags: vec!["webassembly".to_string(), "frontend".to_string()],
-                            link_to: Route::WasmProject {},
+                            link_to: Route::ProjectDetail {
+                                id: "wasm-viz".to_string(),
+                            },
                         }
                         Card {
                             title: "Building Native Mobile Apps with Rust",
