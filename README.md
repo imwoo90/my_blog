@@ -116,3 +116,4 @@ This project is designed for **zero-configuration deployment** via GitHub Action
 ---
 
 Built with ❤️ using **Rust** and **Dioxus**.
+
