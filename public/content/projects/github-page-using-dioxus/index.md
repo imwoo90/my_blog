@@ -3,7 +3,7 @@ title: "Rust & Dioxus Blog Template"
 date: "2026-01-11"
 author: "imwoo90"
 description: "A high-performance blog and portfolio template built with Dioxus and Rust, optimized for GitHub Pages with automated CI/CD workflows."
-image_url: "https://raw.githubusercontent.com/DioxusLabs/dioxus/master/packages/desktop/examples/assets/logo.png"
+image_url: "dioxus_template.png"
 tags: ["rust", "dioxus", "webassembly", "github-pages"]
 link: "https://github.com/imwoo90/my_blog"
 link_text: "View on GitHub"
@@ -30,6 +30,10 @@ Dioxus provides a React-like developer experience but with the benefits of Rust.
 2. **Zero Runtime Latency**: No heavy JavaScript bundles.
 3. **Cross-Platform Potential**: While this template targets the web, Dioxus makes it easy to port to desktop or mobile in the future.
 
-## Customization
+## Zero-Config Automation
 
-One of the main goals of this project was to make it easy for others to fork and use. By simply updating the `base_path` in `Dioxus.toml`, anyone can have their own Rust-powered blog running on GitHub Pages in minutes.
+One of the main goals of this project was to make it truly "plug and play." By using advanced CI/CD techniques and dynamic runtime detection, the blog automatically adapts its configuration to your repository name. 
+
+- **No manual edits** needed in `Dioxus.toml` for deployment.
+- **Dynamic asset loading** that works everywhere.
+- **Automated GitHub Actions** that handle the build, base-tag injection, and deployment.
