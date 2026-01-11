@@ -35,7 +35,7 @@ enum Route {
     NotFound { segments: Vec<String> },
 }
 
-const FAVICON: Asset = asset!("/assets/favicon.ico");
+const FAVICON: Asset = asset!("assets/favicon.png");
 const MAIN_CSS: Asset = asset!("assets/tailwind.css");
 
 fn main() {
